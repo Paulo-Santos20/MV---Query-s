@@ -1,0 +1,5 @@
+Naturalidade: SELECT Fnc_Editor_Retorna_Metadados(&<PAR_CD_ATENDIMENTO>,'DS_NATURALIDADE_PACIENTE') from dual
+Estado Civil: select DECODE(dbamv.paciente.tp_estado_civil,'S','Solteiro','C','Casado','D','Desquitado','V','Viúvo','I','Divorciado') from dbamv.atendime, dbamv.paciente where dbamv.atendime.cd_paciente = dbamv.paciente.cd_paciente and dbamv.atendime.cd_atendimento = &<PAR_CD_ATENDIMENTO>
+Telefone: SELECT paciente.nr_ddd_fone ||' - '|| paciente.nr_fone || '/' || paciente.NR_DDD_CELULAR || ' - '|| paciente.NR_CELULAR  FROM  dbamv.paciente WHERE CD_PACIENTE = &<PAR_CD_PACIENTE>
+Ocupação: SELECT Fnc_Editor_Retorna_Metadados(&<PAR_CD_ATENDIMENTO>,'DS_PROFISSAO_PACIENTE') from dual
+Religião: SELECT Fnc_Editor_Retorna_Metadados(&<PAR_CD_ATENDIMENTO>,'DS_RELIGIAO_PACIENTE') from dual
