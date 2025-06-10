@@ -1,5 +1,29 @@
 Naturalidade: SELECT Fnc_Editor_Retorna_Metadados(&<PAR_CD_ATENDIMENTO>,'DS_NATURALIDADE_PACIENTE') from dual
-Estado Civil: select DECODE(dbamv.paciente.tp_estado_civil,'S','Solteiro','C','Casado','D','Desquitado','V','Viúvo','I','Divorciado') from dbamv.atendime, dbamv.paciente where dbamv.atendime.cd_paciente = dbamv.paciente.cd_paciente and dbamv.atendime.cd_atendimento = &<PAR_CD_ATENDIMENTO>
+Estado Civil: SELECT DECODE(dbamv.paciente.tp_estado_civil,'S','Solteiro','C','Casado','D','Desquitado','V','Viúvo','I','Divorciado') from dbamv.atendime, dbamv.paciente where dbamv.atendime.cd_paciente = dbamv.paciente.cd_paciente and dbamv.atendime.cd_atendimento = &<PAR_CD_ATENDIMENTO>
 Telefone: SELECT paciente.nr_ddd_fone ||' - '|| paciente.nr_fone || '/' || paciente.NR_DDD_CELULAR || ' - '|| paciente.NR_CELULAR  FROM  dbamv.paciente WHERE CD_PACIENTE = &<PAR_CD_PACIENTE>
 Ocupação: SELECT Fnc_Editor_Retorna_Metadados(&<PAR_CD_ATENDIMENTO>,'DS_PROFISSAO_PACIENTE') from dual
 Religião: SELECT Fnc_Editor_Retorna_Metadados(&<PAR_CD_ATENDIMENTO>,'DS_RELIGIAO_PACIENTE') from dual
+
+Peso: SELECT dbamv.Fnc_Retorna_Historico('&<PAR_CD_ATENDIMENTO>', 'AFERICAO', NULL,'P','N', 9, 'FECHADO','N') FROM DUAL
+Altura: SELECT dbamv.Fnc_Retorna_Historico(&<PAR_CD_ATENDIMENTO>,'AFERICAO', NULL, 'A', 'N', '10', 'FECHADO','N', 350, 1 ) FROM DUAL
+FC: SELECT dbamv.Fnc_Retorna_Historico(&<PAR_CD_ATENDIMENTO>, 'AFERICAO', NULL, 'A', 'N', 37, 'FECHADO', 'N') FROM DUAL
+FR: SELECT dbamv.Fnc_Retorna_Historico('&<PAR_CD_ATENDIMENTO>', 'AFERICAO',  NULL, 'A', 'N','3', 'FECHADO', 'N', 350, 1 ) FROM DUAL                                   
+Saturação: SELECT DBAMV.FNC_RETORNA_HISTORICO('&<PAR_CD_ATENDIMENTO>', 'AFERICAO', NULL, 'A', 'N','11','FECHADO','N') FROM DUAL
+
+Nome Paciente: SELECT NM_PACIENTE FROM DBAMV.PACIENTE WHERE CD_PACIENTE = '&<PAR_CD_PACIENTE>'
+
+
+CPF: SELECT dbamv.Fnc_edt3_Retorna_Metadados(&<PAR_CD_ATENDIMENTO>,'NR_CPF_PACIENTE') from dual 
+RG: SELECT paciente.nr_identidade FROM DBAMV.PACIENTE, DBAMV.ATENDIME WHERE paciente.cd_paciente = atendime.cd_paciente and dbamv.atendime.cd_atendimento = &<PAR_CD_ATENDIMENTO>
+Data atual: select to_char(sysdate,'DD/MM/RRRR')  from dual
+CRM Medico atendimento: SELECT dbamv.Fnc_edt3_Retorna_Metadados(&<PAR_CD_ATENDIMENTO>,'NR_MEDICO_ATENDIMENTO_CRM') from dual
+Prestador logado: SELECT Prestador.Nm_Prestador ||' - '|| conselho.ds_conselho ||': Nº.'|| prestador.DS_CODIGO_CONSELHO
+FROM dbasgu.usuarios, dbamv.prestador, dbamv.conselho WHERE Prestador.Cd_Prestador = Usuarios.Cd_Prestador and prestador.cd_conselho = conselho.cd_conselho AND Usuarios.Cd_Usuario = '&<PAR_CD_USUARIO>'
+
+Nome e conselho: SELECT  NM_PRESTADOR||' - '|| DS_CODIGO_CONSELHO FROM PRESTADOR WHERE  TP_SITUACAO ='A' AND CD_TIP_PRESTA =8
+
+Nome da mãe paciente: SELECT Fnc_Editor_Retorna_Metadados('&<PAR_CD_ATENDIMENTO>','NM_MAE_PACIENTE') from dual
+
+Data Nascimento: SELECT  To_Char(PACIENTE.DT_NASCIMENTO, 'DD/MM/YYYY') FROM DBAMV.PACIENTE, DBAMV.ATENDIME WHERE PACIENTE.CD_PACIENTE = ATENDIME.CD_PACIENTE  AND ATENDIME.CD_ATENDIMENTO = &<PAR_CD_ATENDIMENTO>
+
+Nome da mãe: SELECT Fnc_Editor_Retorna_Metadados('&<PAR_CD_ATENDIMENTO>','NM_MAE_PACIENTE') from dual
